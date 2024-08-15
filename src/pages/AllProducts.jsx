@@ -8,12 +8,13 @@ const AllProducts = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchProducts = async (page) => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:5000/products?page=${page}&limit=12`
+        `http://localhost:5000/products?page=${page}&limit=12&search=${searchTerm}`
       );
       setProducts(response.data.products);
       setCurrentPage(response.data.currentPage);
@@ -27,14 +28,27 @@ const AllProducts = () => {
 
   useEffect(() => {
     fetchProducts(currentPage);
-  }, [currentPage]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, searchTerm]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+    // setCurrentPage(1); // Reset to the first page for a new search
+  };
+
   return (
     <div className="container mx-auto p-4">
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={handleSearchChange}
+        placeholder="Search for products..."
+        className="mb-4 p-2 border border-gray-300 rounded w-full"
+      />
       {loading ? (
         <BeatLoader className="text-center" color="#36d7b7" />
       ) : (
