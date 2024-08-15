@@ -84,13 +84,10 @@ const Navbar = () => {
             </ul>
           </div>
           <Link to="/" className="flex justify-center items-center">
-            {/* <a className="text-base md:text-xl lg:text-3xl font-bold ml-1 flex gap-0">
-              TRAV<span className="text-blue-600">ELERS</span>
-            </a> */}
-            <img
-              src="https://i.ibb.co/BKjT4BM/TRAVELING-BLOG.png"
-              className="w-16 ml-1 bg-slate-300 rounded-full"
-            />
+            <a className="text-base md:text-xl lg:text-3xl font-bold ml-1 flex gap-0">
+              BIK<span className="text-blue-600">ROY</span>
+            </a>
+            
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">

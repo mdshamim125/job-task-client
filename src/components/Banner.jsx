@@ -9,7 +9,7 @@ const Banner = () => {
             <div className="lg:max-w-lg">
               <h1 className="text-3xl font-semibold text-gray-800 dark:text-white lg:text-4xl">
                 Best place to choose <br /> your{" "}
-                <span className="text-blue-500">clothes</span>
+                <span className="text-blue-500">products</span>
               </h1>
 
               <p className="mt-3 text-gray-600 dark:text-gray-400">
