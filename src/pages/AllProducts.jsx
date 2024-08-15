@@ -9,12 +9,13 @@ const AllProducts = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [sort, setSort] = useState("");
 
   const fetchProducts = async (page) => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:5000/products?page=${page}&limit=12&search=${searchTerm}`
+        `http://localhost:5000/products?page=${page}&limit=12&search=${searchTerm}&sort=${sort}`
       );
       setProducts(response.data.products);
       setCurrentPage(response.data.currentPage);
@@ -28,8 +29,8 @@ const AllProducts = () => {
 
   useEffect(() => {
     fetchProducts(currentPage);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, searchTerm]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, searchTerm, sort]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -40,15 +41,66 @@ const AllProducts = () => {
     // setCurrentPage(1); // Reset to the first page for a new search
   };
 
+  const handleSortChange = (event) => {
+    setSort(event.target.value); // Update sorting state
+  };
+
   return (
-    <div className="container mx-auto p-4">
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={handleSearchChange}
-        placeholder="Search for products..."
-        className="mb-4 p-2 border border-gray-300 rounded w-full"
-      />
+    <div className="container mx-auto p-4 mt-6">
+      <div className="flex items-center gap-6">
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          placeholder="Search for products..."
+          className="mb-4 p-2 border border-gray-300 rounded w-1/3"
+        />
+        {/* <select
+          className="border p-2 rounded ml-4"
+          value={sort}
+          onChange={handleSortChange}
+        >
+          <option value="newestFirst">Newest First</option>
+          <option value="priceLowToHigh">Low to High</option>
+          <option value="priceHighToLow">High to Low</option>
+        </select> */}
+
+        <div className="flex gap-2 justify-center items-start">
+          <p className="text-xl font-bold">Sort By:</p>
+          <div className="flex space-x-4">
+            <label className="flex items-center">
+              <input
+                type="radio"
+                value="newestFirst"
+                checked={sort === "newestFirst"}
+                onChange={handleSortChange}
+                className="mr-2"
+              />
+              Newest First
+            </label>
+            <label className="flex items-center">
+              <input
+                type="radio"
+                value="priceLowToHigh"
+                checked={sort === "priceLowToHigh"}
+                onChange={handleSortChange}
+                className="mr-2"
+              />
+              Low to High
+            </label>
+            <label className="flex items-center">
+              <input
+                type="radio"
+                value="priceHighToLow"
+                checked={sort === "priceHighToLow"}
+                onChange={handleSortChange}
+                className="mr-2"
+              />
+              High to Low
+            </label>
+          </div>
+        </div>
+      </div>
       {loading ? (
         <BeatLoader className="text-center" color="#36d7b7" />
       ) : (
