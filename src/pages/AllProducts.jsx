@@ -10,12 +10,16 @@ const AllProducts = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [sort, setSort] = useState("");
+  const [brand, setBrand] = useState("");
+  const [category, setCategory] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
 
   const fetchProducts = async (page) => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:5000/products?page=${page}&limit=12&search=${searchTerm}&sort=${sort}`
+        `http://localhost:5000/products?page=${page}&limit=12&search=${searchTerm}&sort=${sort}&brand=${brand}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`
       );
       setProducts(response.data.products);
       setCurrentPage(response.data.currentPage);
@@ -30,7 +34,7 @@ const AllProducts = () => {
   useEffect(() => {
     fetchProducts(currentPage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, searchTerm, sort]);
+  }, [currentPage, searchTerm, sort, brand, category, minPrice, maxPrice]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -43,6 +47,22 @@ const AllProducts = () => {
 
   const handleSortChange = (event) => {
     setSort(event.target.value); // Update sorting state
+  };
+
+  const handleBrandChange = (event) => {
+    setBrand(event.target.value); // Update Brand Filter State
+  };
+
+  const handleCategoryChange = (event) => {
+    setCategory(event.target.value); // Update Category Filter State
+  };
+
+  const handleMinPriceChange = (event) => {
+    setMinPrice(event.target.value); // Update Minimum Price Filter State
+  };
+
+  const handleMaxPriceChange = (event) => {
+    setMaxPrice(event.target.value); // Update Maximum Price Filter State
   };
 
   return (
@@ -101,11 +121,54 @@ const AllProducts = () => {
           </div>
         </div>
       </div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
+        <select
+          className="border p-2 rounded"
+          value={brand}
+          onChange={handleBrandChange} // Handle Brand Filter Change
+        >
+          <option value="">All Brands</option>
+          <option value="WellnessPro">WellnessPro</option>
+          <option value="FitGear">FitGear</option>
+          <option value="VisionTech">VisionTech</option>
+          <option value="StyleIcon">StyleIcon</option>
+          <option value="SunGuard">SunGuard</option>
+        </select>
+        <select
+          className="border p-2 rounded"
+          value={category}
+          onChange={handleCategoryChange} // Handle Category Filter Change
+        >
+          <option value="">All Categories</option>
+          <option value="Home">Home</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Beauty & Health">Beauty & Health</option>
+          <option value="Sportswear">Sportswear</option>
+          <option value="Fashion">Fashion</option>
+        </select>
+        <input
+          type="number"
+          value={minPrice}
+          onChange={handleMinPriceChange} // Handle Minimum Price Change
+          placeholder="Min Price"
+          className="p-2 border  border-gray-300 rounded"
+        />
+        <input
+          type="number"
+          value={maxPrice}
+          onChange={handleMaxPriceChange} // Handle Maximum Price Change
+          placeholder="Max Price"
+          className="p-2 border border-gray-300 rounded "
+        />
+      </div>
       {loading ? (
-        <BeatLoader className="text-center" color="#36d7b7" />
+        <BeatLoader
+          className="flex mt-12 justify-center text-center"
+          color="#36d7b7"
+        />
       ) : (
         <div>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
             {products.map((product) => (
               <li key={product._id} className="bg-white shadow rounded-lg p-4">
                 <img
@@ -116,24 +179,34 @@ const AllProducts = () => {
                 <h3 className="text-lg font-semibold text-gray-800 mt-4">
                   {product.productName}
                 </h3>
-                <p className="text-gray-600 mt-2">{product.description}</p>
-                <p className="text-blue-600 mt-4 font-bold">
-                  Price: ${product.price}
+                <p className="text-gray-600 my-2">{product.description}</p>
+                <p className="text-blue-600  font-bold">
+                  Category: {product.category}
                 </p>
-                <div className="flex items-center mt-2">
-                  <div className="flex text-yellow-400">
-                    {Array.from({ length: 5 }, (_, index) => (
-                      <FaStar
-                        key={index}
-                        className={
-                          index < product.rating
-                            ? "text-yellow-400"
-                            : "text-gray-300"
-                        }
-                      />
-                    ))}
+                <p className="text-blue-600 my-1 font-bold">
+                  Brand: {product.brandName}
+                </p>
+                <div className="flex justify-between gap-2 items-center">
+                  <p className="text-blue-600  font-bold">
+                    Price: ${product.price}
+                  </p>
+                  <div className="flex items-center">
+                    <div className="flex text-yellow-400">
+                      {Array.from({ length: 5 }, (_, index) => (
+                        <FaStar
+                          key={index}
+                          className={
+                            index < product.rating
+                              ? "text-yellow-400"
+                              : "text-gray-300"
+                          }
+                        />
+                      ))}
+                    </div>
+                    <span className="text-gray-600 ml-2">
+                      ({product.rating})
+                    </span>
                   </div>
-                  <span className="text-gray-600 ml-2">({product.rating})</span>
                 </div>
               </li>
             ))}
