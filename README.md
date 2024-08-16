@@ -18,17 +18,21 @@ This is the frontend part of the project, built with [React](https://reactjs.org
 
 ## Getting Started
 
-### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/frontend-repo.git
-cd frontend-repo
+git clone https://github.com/mdshamim125/job-task-client
 npm install
 set environment variable to your .env.local file : VITE_API_URL=http://localhost:5000
 npm run dev
 
-Technologies Used
+
+
+```
+
+### Technologies Used
+```
 React
 Tailwind CSS
 Axios
+
 ```
