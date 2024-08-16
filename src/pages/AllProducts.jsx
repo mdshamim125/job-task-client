@@ -19,7 +19,9 @@ const AllProducts = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:5000/products?page=${page}&limit=12&search=${searchTerm}&sort=${sort}&brand=${brand}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+        `${
+          import.meta.env.VITE_API_URL
+        }/products?page=${page}&limit=12&search=${searchTerm}&sort=${sort}&brand=${brand}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`
       );
       setProducts(response.data.products);
       setCurrentPage(response.data.currentPage);
@@ -174,7 +176,7 @@ const AllProducts = () => {
                 <img
                   src={product.productImage}
                   alt={product.productImage}
-                  className="w-full h-48 object-cover rounded-lg"
+                  className="w-full h-60 object-cover rounded-lg"
                 />
                 <h3 className="text-lg font-semibold text-gray-800 mt-4">
                   {product.productName}
