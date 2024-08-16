@@ -19,9 +19,7 @@ const AllProducts = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${
-          import.meta.env.VITE_API_URL
-        }/products?page=${page}&limit=12&search=${searchTerm}&sort=${sort}&brand=${brand}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+        `https://job-task-server-sooty.vercel.app/products?page=${page}&limit=12&search=${searchTerm}&sort=${sort}&brand=${brand}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`
       );
       setProducts(response.data.products);
       setCurrentPage(response.data.currentPage);
@@ -172,7 +170,10 @@ const AllProducts = () => {
         <div>
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
             {products.map((product) => (
-              <li key={product._id} className="bg-white shadow rounded-lg p-4 cursor-pointer">
+              <li
+                key={product._id}
+                className="bg-white shadow rounded-lg p-4 cursor-pointer"
+              >
                 <img
                   src={product.productImage}
                   alt={product.productImage}
