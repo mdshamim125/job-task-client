@@ -18,10 +18,13 @@ const AllProducts = () => {
   const fetchProducts = async (page) => {
     setLoading(true);
     try {
+      // const response = await axios.get(
+      //   `http://localhost:9000/products?page=${page}&limit=12&search=${searchTerm}&sort=${sort}&brand=${brand}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+      // );
+
       const response = await axios.get(
-        `https://job-task-server-iota.vercel.app/products?page=${page}&limit=12&search=${searchTerm}&sort=${sort}&brand=${brand}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+        `https://job-task-server-1fof.onrender.com/products?page=${page}&limit=12&search=${searchTerm}&sort=${sort}&brand=${brand}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`
       );
-      // "https://job-task-server-iota.vercel.app"
       setProducts(response.data.products);
       setCurrentPage(response.data.currentPage);
       setTotalPages(response.data.totalPages);
@@ -43,27 +46,26 @@ const AllProducts = () => {
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    // setCurrentPage(1); // Reset to the first page for a new search
   };
 
   const handleSortChange = (event) => {
-    setSort(event.target.value); // Update sorting state
+    setSort(event.target.value);
   };
 
   const handleBrandChange = (event) => {
-    setBrand(event.target.value); // Update Brand Filter State
+    setBrand(event.target.value);
   };
 
   const handleCategoryChange = (event) => {
-    setCategory(event.target.value); // Update Category Filter State
+    setCategory(event.target.value);
   };
 
   const handleMinPriceChange = (event) => {
-    setMinPrice(event.target.value); // Update Minimum Price Filter State
+    setMinPrice(event.target.value);
   };
 
   const handleMaxPriceChange = (event) => {
-    setMaxPrice(event.target.value); // Update Maximum Price Filter State
+    setMaxPrice(event.target.value);
   };
 
   return (
@@ -126,7 +128,7 @@ const AllProducts = () => {
         <select
           className="border p-2 rounded"
           value={brand}
-          onChange={handleBrandChange} // Handle Brand Filter Change
+          onChange={handleBrandChange}
         >
           <option value="">All Brands</option>
           <option value="WellnessPro">WellnessPro</option>
@@ -138,7 +140,7 @@ const AllProducts = () => {
         <select
           className="border p-2 rounded"
           value={category}
-          onChange={handleCategoryChange} // Handle Category Filter Change
+          onChange={handleCategoryChange}
         >
           <option value="">All Categories</option>
           <option value="Home">Home</option>
@@ -150,14 +152,14 @@ const AllProducts = () => {
         <input
           type="number"
           value={minPrice}
-          onChange={handleMinPriceChange} // Handle Minimum Price Change
+          onChange={handleMinPriceChange}
           placeholder="Min Price"
           className="p-2 border  border-gray-300 rounded"
         />
         <input
           type="number"
           value={maxPrice}
-          onChange={handleMaxPriceChange} // Handle Maximum Price Change
+          onChange={handleMaxPriceChange}
           placeholder="Max Price"
           className="p-2 border border-gray-300 rounded "
         />
@@ -170,7 +172,7 @@ const AllProducts = () => {
       ) : (
         <div>
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
-            {products.map((product) => (
+            {products?.map((product) => (
               <li
                 key={product._id}
                 className="bg-white shadow rounded-lg p-4 cursor-pointer"
@@ -195,7 +197,7 @@ const AllProducts = () => {
                     Price: ${product.price}
                   </p>
                   <div className="flex items-center">
-                    <div className="flex text-yellow-400">
+                    {/* <div className="flex text-yellow-400">
                       {Array.from({ length: 5 }, (_, index) => (
                         <FaStar
                           key={index}
@@ -206,7 +208,7 @@ const AllProducts = () => {
                           }
                         />
                       ))}
-                    </div>
+                    </div> */}
                     <span className="text-gray-600 ml-2">
                       ({product.rating})
                     </span>
