@@ -18,13 +18,13 @@ const AllProducts = () => {
   const fetchProducts = async (page) => {
     setLoading(true);
     try {
-      // const response = await axios.get(
-      //   `http://localhost:9000/products?page=${page}&limit=12&search=${searchTerm}&sort=${sort}&brand=${brand}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`
-      // );
-
       const response = await axios.get(
-        `https://job-task-server-1fof.onrender.com/products?page=${page}&limit=12&search=${searchTerm}&sort=${sort}&brand=${brand}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+        `https://job-task-server.up.railway.app/products?page=${page}&limit=12&search=${searchTerm}&sort=${sort}&brand=${brand}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`
       );
+
+      // const response = await axios.get(
+      //   `https://job-task-server-1fof.onrender.com/products?page=${page}&limit=12&search=${searchTerm}&sort=${sort}&brand=${brand}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+      // );
       setProducts(response.data.products);
       setCurrentPage(response.data.currentPage);
       setTotalPages(response.data.totalPages);
@@ -209,8 +209,8 @@ const AllProducts = () => {
                         />
                       ))}
                     </div> */}
-                    <span className="text-gray-600 ml-2">
-                      ({product.rating})
+                    <span className=" text-blue-600  font-bold">
+                      Rating: {product.rating}
                     </span>
                   </div>
                 </div>

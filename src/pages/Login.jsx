@@ -17,13 +17,13 @@ const Login = () => {
     try {
       const result = await googleLogin();
       // console.log(result.user);
-    //   const { data } = await axios.post(
-    //     `${import.meta.env.VITE_API_URL}/jwt`,
-    //     {
-    //       email: result?.user?.email,
-    //     },
-    //     { withCredentials: true }
-    //   );
+      //   const { data } = await axios.post(
+      //     `${import.meta.env.VITE_API_URL}/jwt`,
+      //     {
+      //       email: result?.user?.email,
+      //     },
+      //     { withCredentials: true }
+      //   );
       // console.log(data);
       toast.success("Sign-in Successful");
       navigate(from, { replace: true });
