@@ -19,8 +19,9 @@ const AllProducts = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `https://job-task-server-sooty.vercel.app/products?page=${page}&limit=12&search=${searchTerm}&sort=${sort}&brand=${brand}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+        `https://job-task-server-iota.vercel.app/products?page=${page}&limit=12&search=${searchTerm}&sort=${sort}&brand=${brand}&category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`
       );
+      // "https://job-task-server-iota.vercel.app"
       setProducts(response.data.products);
       setCurrentPage(response.data.currentPage);
       setTotalPages(response.data.totalPages);
@@ -67,13 +68,13 @@ const AllProducts = () => {
 
   return (
     <div className="container mx-auto p-4 mt-6">
-      <div className="flex items-center gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2  gap-6">
         <input
           type="text"
           value={searchTerm}
           onChange={handleSearchChange}
           placeholder="Search for products..."
-          className="mb-4 p-2 border border-gray-300 rounded w-1/3"
+          className=" p-2 border border-gray-300 rounded w-full"
         />
         {/* <select
           className="border p-2 rounded ml-4"
